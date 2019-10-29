@@ -1,3 +1,11 @@
+/**
+* Java RMI Server program
+*
+* @author  Arda Celik
+* @version 1.0
+* @since   2019-29-10
+*/
+
 import java.rmi.*;
 import java.rmi.registry.Registry; 
 import java.rmi.registry.LocateRegistry; 

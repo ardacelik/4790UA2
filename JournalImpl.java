@@ -1,3 +1,11 @@
+/**
+* Java RMI remote interface implementation
+*
+* @author  Arda Celik
+* @version 1.0
+* @since   2019-29-10
+*/
+
 import java.rmi.*;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.*;
@@ -5,6 +13,14 @@ import java.io.*;
 
 public class JournalImpl implements Journal {
 	
+	/**
+	* This method reverses the text in the journal entry.
+	* @param file:name of the file to be reversed
+	* @param user:user object
+	* @param path:the location to store the reversed file
+	* @return reversed text
+	* @exception IOException and Exception
+	*/	
 	public String reverseEntry(File file, User user, String path) throws RemoteException {
 		// Create an empty file for the reversed version
 		File reversedFile = new File(path + user.getUserId()+ "reversed.txt");
@@ -39,6 +55,15 @@ public class JournalImpl implements Journal {
 			return "Something went wrong";
 		} 
 	}
+	
+	/**
+	* This method removes the white space from the journal entry.
+	* @param file:name of the file to be updated
+	* @param user:user object
+	* @param path:the location to store the reversed file
+	* @return updated text
+	* @exception IOException and Exception
+	*/
 	public String removeWhiteSpace(File file, User user, String path) throws RemoteException {
 		// Create an empty file for the reversed version
 		File noSpaceFile = new File(path + user.getUserId()+ "noSpace.txt");
@@ -71,6 +96,14 @@ public class JournalImpl implements Journal {
 			return "Something went wrong";
 		}		
 	}
+
+	/**
+	* This method removes the journal entry.
+	* @param file:name of the file to be removed
+	* @param user:user object
+	* @param path:the location to remove the file
+	* @return success/failure message
+	*/	
 	public String deleteFile(File file, User user, String path) throws RemoteException {
 		if(file.delete()) {
 			user.setUserJournal(null);

@@ -1,3 +1,11 @@
+/**
+* Java RMI Client program
+*
+* @author  Arda Celik
+* @version 1.0
+* @since   2019-29-10
+*/
+
 import java.io.*;
 import java.awt.Desktop;
 import java.util.ArrayList;
@@ -10,7 +18,6 @@ public class Client {
 	public static void main(String[] args) {
 		
 		Scanner usrIn = new Scanner(System.in);
-		
 		String userId = "";
 		String selectService;
 		String userQuote;
@@ -46,11 +53,12 @@ public class Client {
         	System.out.println("Waiting for user input");
         	selectService = usrIn.next();
         	if(selectService.equals("6")) {
+        		// End program
         		System.out.println("Ending the program...");
         		System.exit(1);
         	}
         	else if(selectService.equals("5")) {
-        		// Update
+        		// Update entry
         		System.out.println("Updating journal");
         		try {
         	         if(file.exists()) {
@@ -69,7 +77,7 @@ public class Client {
         	      }
         	}
         	else if(selectService.equals("4")) {
-        		// delete
+        		// Delete the entry
         		try {
         			Registry registry = LocateRegistry.getRegistry(null);
         			
@@ -115,7 +123,7 @@ public class Client {
         		continue;
         	}
         	else if(selectService.equals("1")) {
-        		// create
+        		// Create the journal entry
         		System.out.println("Creating a new journal entry");
         		try {
         			file = new File("./src/"+ userId +".txt/");
