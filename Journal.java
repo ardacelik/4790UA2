@@ -1,3 +1,4 @@
+import java.io.File;
 import java.rmi.*;
 
 public interface Journal extends Remote {
@@ -9,8 +10,8 @@ public interface Journal extends Remote {
 	// Create journal entry
 	public void createAnEntry() throws RemoteException;
 	
-	// See all journal entries
-	// public void seeAllEntries() throws RemoteException;
+	// Reverse a journal entry
+	public String reverseEntry(File file, User user, String path) throws RemoteException;
 	
 	// Update a journal entry
 	// public void updateAnEntry() throws RemoteException;

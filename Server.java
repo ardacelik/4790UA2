@@ -16,8 +16,6 @@ public class Server extends JournalImpl {
 			registry.bind("Journal", stub);
 			
 			System.err.println("Server is running");
-			//Naming.rebind(Journal.SERVICE, ji);
-			//System.out.println("Pubished in RMI registry, ready...");
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
