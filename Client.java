@@ -2,11 +2,6 @@ import java.io.*;
 import java.awt.Desktop;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-
-//import Server.Journal;
-//import Server.User;
-
 import java.rmi.*;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -43,21 +38,66 @@ public class Client {
         System.out.println("Welcome " + userId + ". To select an activity please enter the corresponding number:");
         System.out.println("1. Create a journal entry");
         System.out.println("2. Reverse a journal entry");
-        System.out.println("3. Update a journal entry");
+        System.out.println("3. Remove white space from a journal entry");
         System.out.println("4. Delete a journal entry");
-        System.out.println("5. Exit");
+        System.out.println("5. Update journal entry");
+        System.out.println("6. Exit");
         while(true) {
         	System.out.println("Waiting for user input");
         	selectService = usrIn.next();
-        	if(selectService.equals("5")) {
+        	if(selectService.equals("6")) {
         		System.out.println("Ending the program...");
         		System.exit(1);
         	}
+        	else if(selectService.equals("5")) {
+        		// Update
+        		System.out.println("Updating journal");
+        		try {
+        	         if(file.exists()) {
+        	        	 Desktop desktop = Desktop.getDesktop();
+        	        	 desktop.open(file);
+        	        	 user.setUserJournal(file);
+            	         continue;
+        	         }
+        	         else { 
+        	        	 System.out.println ("File does not exist.");
+        	        	 continue;
+        	         }
+        	      }
+        	      catch(IOException ioe) {
+        	         ioe.printStackTrace();
+        	      }
+        	}
         	else if(selectService.equals("4")) {
         		// delete
+        		try {
+        			Registry registry = LocateRegistry.getRegistry(null);
+        			
+        			Journal stub = (Journal) registry.lookup("Journal");
+        			
+        			System.out.println(stub.deleteFile(file, user, path));
+        			
+        		} catch(Exception e) {
+        			 System.err.println("Client exception: " + e.toString()); 
+        	         e.printStackTrace();
+        		}
+        		continue;
         	}
         	else if(selectService.equals("3")) {
-        		// update
+        		// Remove white space
+        		try {
+        			Registry registry = LocateRegistry.getRegistry(null);
+        			
+        			Journal stub = (Journal) registry.lookup("Journal");
+        			
+        			System.out.println(stub.removeWhiteSpace(file, user, path));
+        			
+        		} catch(Exception e) {
+        			 System.err.println("Client exception: " + e.toString()); 
+        	         e.printStackTrace();
+        		}
+        		continue;
+        		
         	}
         	else if(selectService.equals("2")) {
         		// Reverse
@@ -93,10 +133,6 @@ public class Client {
         	      }
         		
         	}
-//        	else {
-//        		System.out.println("Invalid input please try again");
-//        		continue;
-//        	}
         	
         }
         
